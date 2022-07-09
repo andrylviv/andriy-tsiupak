@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class FacultyController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/faculty")
-    public FacultyDto createFaculty(@RequestBody FacultyDto facultyDto) {
+    public FacultyDto createFaculty(@RequestBody  @Valid FacultyDto facultyDto) {
         return facultyService.createFaculty(facultyDto);
     }
 
@@ -37,7 +38,7 @@ public class FacultyController {
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping(value = "/faculty/{name}")
-    public FacultyDto updateFaculty(@PathVariable("name") String name, @RequestBody FacultyDto facultyDto) {
+    public FacultyDto updateFaculty(@PathVariable("name") String name, @RequestBody  @Valid FacultyDto facultyDto) {
         return facultyService.updateFaculty(name, facultyDto);
     }
 
