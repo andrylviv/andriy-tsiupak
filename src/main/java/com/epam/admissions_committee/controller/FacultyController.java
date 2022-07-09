@@ -1,7 +1,6 @@
 package com.epam.admissions_committee.controller;
 
 import com.epam.admissions_committee.controller.dto.FacultyDto;
-import com.epam.admissions_committee.controller.dto.UserDto;
 import com.epam.admissions_committee.model.Faculty;
 import com.epam.admissions_committee.service.FacultyService;
 import lombok.RequiredArgsConstructor;
