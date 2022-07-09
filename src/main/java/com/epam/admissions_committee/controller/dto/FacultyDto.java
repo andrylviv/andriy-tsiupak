@@ -15,4 +15,3 @@ public class FacultyDto{
     private int isEieUkLang;
     private int isEiePhysics;
 }
-

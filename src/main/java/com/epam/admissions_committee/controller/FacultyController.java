@@ -28,6 +28,7 @@ public class FacultyController {
     public List<Faculty> getAllFaculties() {
         return facultyService.listFaculty();
     }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/faculty/{name}")
     public FacultyDto getUser(@PathVariable String name) {
@@ -37,9 +38,8 @@ public class FacultyController {
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping(value = "/faculty/{name}")
-    public UserDto updateFaculty(@PathVariable("name") String name, @RequestBody FacultyDto facultyDto) {
-        facultyService.updateFaculty(name, facultyDto);
-        return null;
+    public FacultyDto updateFaculty(@PathVariable("name") String name, @RequestBody FacultyDto facultyDto) {
+        return facultyService.updateFaculty(name, facultyDto);
     }
 
     @DeleteMapping(value = "/faculty/{name}")
