@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Api(tags = "API description for SWAGGER documentation")
 @ApiResponses({
+        @ApiResponse(code = 400, message = "Bad request"),
         @ApiResponse(code = 404, message = "Not found"),
         @ApiResponse(code = 500, message = "Internal Server Error")
 })
