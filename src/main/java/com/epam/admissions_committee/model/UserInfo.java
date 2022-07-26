@@ -1,15 +1,18 @@
 package com.epam.admissions_committee.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
+import javax.persistence.*;
 
-@Data
+@Entity
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
@@ -29,5 +32,7 @@ public class UserInfo {
     private int eieUkLang;
     private int eieMath;
     private int eiePhysics;
+    @OneToOne(mappedBy = "userInfo")
+    @JsonBackReference
     private User userId;
 }

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +31,9 @@ public class FacultyController {
 
     @ApiOperation("Add faculty")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/faculty")
-    public FacultyDto createFaculty(@RequestBody  @Valid FacultyDto facultyDto) {
-        return facultyService.createFaculty(facultyDto);
+    @PostMapping(value = "/faculty/language/{lang}")
+    public FacultyDto createFaculty(@PathVariable("lang") String lang, @RequestBody  @Valid FacultyDto facultyDto) {
+        return facultyService.createFaculty(facultyDto, lang);
     }
 
     @ApiOperation("Get all faculties")
@@ -40,6 +41,27 @@ public class FacultyController {
     @GetMapping(value = "/faculty")
     public List<Faculty> getAllFaculties() {
         return facultyService.listFaculty();
+    }
+
+    @ApiOperation("Get all faculties paged and sorted by name")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/faculty/pas-name/page/{page}/size/{size}/lang/{lang}")
+    public List<Faculty> getAllFacultiesByName(@PathVariable("page") int page, @PathVariable("size") int size, @PathVariable("lang") String lang) {
+        return facultyService.listPagedAndSortingFacultyByName(page, size, lang);
+    }
+
+    @ApiOperation("Get all faculties paged and sorted by state founded places ")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/faculty/pas-s-f-p-l/page/{page}/size/{size}")
+    public Page<Faculty> getAllFacultiesSFPl(@PathVariable("page") int page, @PathVariable("size") int size) {
+        return facultyService.listPagedAndSortingFacultyByStFoundPl(page, size);
+    }
+
+    @ApiOperation("Get all faculties paged and sorted by total places ")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/faculty/pas-n-s-f-p-l/page/{page}/size/{size}")
+    public Page<Faculty> getAllFacultiesNSFPl(@PathVariable("page") int page, @PathVariable("size") int size) {
+        return facultyService.listPagedAndSortingFacultyByTotPl(page, size);
     }
 
     @ApiOperation("Get faculty")

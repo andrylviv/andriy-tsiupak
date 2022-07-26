@@ -1,23 +1,36 @@
 package com.epam.admissions_committee.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
+import java.util.Set;
 
-@Data
+@Entity
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Faculty {
-    private int id;
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long facultyId;
     private int stFundedPlaces;
     private int totPlaces;
-    private String langName;
     private int isEieMath;
     private int isEieUkLang;
     private int isEiePhysics;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="faculty", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("faculty")
+    private List<FacultyTranslate> facultyTranslates;          //for faculty_translate
     private Instant writtenOn;
+    @ManyToMany(mappedBy = "faculties")
+    @JsonIgnore
+    Set<User> users;                                           //for user_faculty
+    @OneToMany(mappedBy = "faculty")
+    @JsonIgnore
+    List<Statement> statements;                                //for Statement entity
 }

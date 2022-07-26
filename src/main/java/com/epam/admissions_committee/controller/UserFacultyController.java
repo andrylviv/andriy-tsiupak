@@ -26,19 +26,19 @@ public class UserFacultyController {
 
     @ApiOperation("Register applicant")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/userfaculty/userid/{userId}/facultyid/{facultyId}/eieuklang/{eieUkLang}/eiemath/{eieMath}/eiephysics/{eiePhysics}")
-    public ResponseEntity<Void> regUser(@PathVariable("userId") int userId, @PathVariable("facultyId") int facultyId,
+    @PostMapping(value = "/user-faculty/user-email/{userEmail}/faculty-id/{facultyId}/eie-uk-lang/{eieUkLang}/eie-math/{eieMath}/eie-physics/{eiePhysics}")
+    public ResponseEntity<Void> regUser(@PathVariable("userEmail") String userEmail, @PathVariable("facultyId") int facultyId,
                                         @PathVariable("eieUkLang") int eieUkLang, @PathVariable("eieMath") int eieMath,
                                         @PathVariable("eiePhysics") int eiePhysics) {
-        log.info("applicant userId {} registered on facultyId {}", userId, facultyId);
-        userFacultyService.regUserOnFaculty(userId, facultyId, eieUkLang, eieMath, eiePhysics);
+        log.info("applicant userId {} registered on facultyId {}", userEmail, facultyId);
+        userFacultyService.regUserOnFaculty(userEmail, facultyId, eieUkLang, eieMath, eiePhysics);
         return ResponseEntity.noContent().build();
     }
 
     @ApiOperation("Remove applicant")
-    @DeleteMapping(value = "/userfaculty/userid/{userId}/facultyid/{facultyId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable int userId, @PathVariable int facultyId) {
-        userFacultyService.deleteUser(userId, facultyId);
+    @DeleteMapping(value = "/user-faculty/user-email/{userEmail}/faculty-id/{facultyId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("userEmail") String userEmail, @PathVariable("facultyId") int facultyId) {
+        userFacultyService.deleteUser(userEmail, facultyId);
         return ResponseEntity.noContent().build();
     }
 }
