@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/user")
 @RequiredArgsConstructor
 @Log4j2
 public class UserController {
@@ -18,7 +19,7 @@ public class UserController {
 
     @ApiOperation("Get users")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/user")
+    @GetMapping
     public List<UserDto> getAllUsers() {
         log.info("getAllUsers");
         return userService.listUsers();
@@ -26,7 +27,7 @@ public class UserController {
 
     @ApiOperation("Get user by email")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/user/{email}")
+    @GetMapping(value = "/{email}")
     public UserDto getUser(@PathVariable String email) {
         log.info("getUser by email {}", email);
         return userService.getUser(email);
@@ -34,20 +35,20 @@ public class UserController {
 
     @ApiOperation("Create user")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/user")
+    @PostMapping
     public UserDto createUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
 
     @ApiOperation("Update user")
     @ResponseStatus(HttpStatus.OK)
-    @PatchMapping(value = "/user/{email}")
+    @PatchMapping(value = "/{email}")
     public UserDto updateUser(@PathVariable("email") String email, @RequestBody UserDto userDto) {
         return userService.updateUser(email, userDto);
     }
 
     @ApiOperation("Delete user")
-    @DeleteMapping(value = "/user/{email}")
+    @DeleteMapping(value = "/{email}")
     public ResponseEntity<Void> deleteUser(@PathVariable String email) {
         userService.deleteUser(email);
         return ResponseEntity.noContent().build();

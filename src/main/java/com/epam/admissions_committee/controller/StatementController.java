@@ -8,27 +8,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/statement")
 @RequiredArgsConstructor
 @Log4j2
 public class StatementController {
     StatementService statementService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/statement{facultyId}")
+    @PostMapping(value = "/{facultyId}")
     public void add(@PathVariable int facultyId) {
         log.info("added applicant by facultyId {}", facultyId);
          statementService.addApplicantToStatement(facultyId);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/statement")
-    public void finalise() {
-        statementService.finaliseStatement();
+    @PostMapping(value = "/finalise/{facultyId}")
+    public void finalise(@PathVariable int facultyId) {
+        statementService.finaliseStatement(facultyId);
     }
 
-    @DeleteMapping(value = "/user/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
-        statementService.removeFromStatement(userId);
+    @DeleteMapping(value = "/{userEmail}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String userEmail) {
+        statementService.removeFromStatement(userEmail);
         return ResponseEntity.noContent().build();
     }
 }
