@@ -28,7 +28,7 @@ public class UserMappingServiceImpl implements UserMappingService {
         }
         return user;
     }
-    void mapUserInfo(User user, UserInfoDto userInfoDto) {
+    private void mapUserInfo(User user, UserInfoDto userInfoDto) {
         UserInfo userInfo = user.getUserInfo();
         if(!Objects.nonNull(userInfo)) {
             userInfo = new UserInfo();

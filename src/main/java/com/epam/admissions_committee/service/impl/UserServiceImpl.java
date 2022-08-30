@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private  final UserMappingService userMappingService;
+    private final UserMappingService userMappingService;
 
     @Override
     public UserDto getUser(String email) {

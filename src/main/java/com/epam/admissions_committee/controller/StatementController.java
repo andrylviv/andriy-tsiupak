@@ -36,7 +36,7 @@ public class StatementController {
 
     @ApiOperation("Finalise statement")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/statement/finalise/{facultyId}")
+    @PostMapping(value = "/statement/finalise/{facultyId}")
     public void finalise(@PathVariable int facultyId) {
         statementService.finaliseStatement(facultyId);
     }

@@ -27,12 +27,11 @@ public class UserFacultyController {
     @ApiOperation("Register applicant")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/user-faculty/user-email/{userEmail}/faculty-id/{facultyId}/eie-uk-lang/{eieUkLang}/eie-math/{eieMath}/eie-physics/{eiePhysics}")
-    public ResponseEntity<Void> regUser(@PathVariable("userEmail") String userEmail, @PathVariable("facultyId") int facultyId,
+    public void regUser(@PathVariable("userEmail") String userEmail, @PathVariable("facultyId") int facultyId,
                                         @PathVariable("eieUkLang") int eieUkLang, @PathVariable("eieMath") int eieMath,
                                         @PathVariable("eiePhysics") int eiePhysics) {
         log.info("applicant userId {} registered on facultyId {}", userEmail, facultyId);
         userFacultyService.regUserOnFaculty(userEmail, facultyId, eieUkLang, eieMath, eiePhysics);
-        return ResponseEntity.noContent().build();
     }
 
     @ApiOperation("Remove applicant")

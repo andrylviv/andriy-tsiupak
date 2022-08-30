@@ -89,7 +89,7 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public void deleteFaculty(String name) {
         log.info("deleteFaculty with email {}", name);
-        Faculty faculty = FacultyMapper.INSTANCE.mapFaculty(getFaculty(name));
+        Faculty faculty = getFacultyService(name);
         facultyRepository.delete(faculty);
         log.info("Faculty with name {} successfully deleted", name);
     }

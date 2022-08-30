@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class FacultyTranslate {
