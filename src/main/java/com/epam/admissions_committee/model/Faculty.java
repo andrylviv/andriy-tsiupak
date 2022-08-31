@@ -5,19 +5,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.Instant;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Faculty {
-    private int id;
-    private String name;
+    private Long facultyId;
     private int stFundedPlaces;
     private int totPlaces;
-    private String langName;
     private int isEieMath;
     private int isEieUkLang;
     private int isEiePhysics;
+    private List<FacultyTranslate> facultyTranslates;
     private Instant writtenOn;
+    Set<User> users;
+    List<Statement> statements;
 }
