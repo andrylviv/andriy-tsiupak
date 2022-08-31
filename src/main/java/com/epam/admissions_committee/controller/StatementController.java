@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/statement")
 @RequiredArgsConstructor
 @Api(tags = "API description for SWAGGER documentation")
 @ApiResponses({
@@ -26,7 +26,7 @@ public class StatementController {
 
     @ApiOperation("Add to statement")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/statement{facultyId}")
+    @PostMapping(value = "/{facultyId}")
     public void add(@PathVariable int facultyId) {
         log.info("added applicant by facultyId {}", facultyId);
          statementService.addApplicantToStatement(facultyId);
@@ -34,15 +34,15 @@ public class StatementController {
 
     @ApiOperation("Finalise statement")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/statement")
-    public void finalise() {
-        statementService.finaliseStatement();
+    @PostMapping(value = "/finalise/{facultyId}")
+    public void finalise(@PathVariable int facultyId) {
+        statementService.finaliseStatement(facultyId);
     }
 
     @ApiOperation("Delete user from statement")
-    @DeleteMapping(value = "/user/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
-        statementService.removeFromStatement(userId);
+    @DeleteMapping(value = "/{userEmail}")
+    public ResponseEntity<Void> deleteStatement(@PathVariable String userEmail) {
+        statementService.removeFromStatement(userEmail);
         return ResponseEntity.noContent().build();
     }
 }

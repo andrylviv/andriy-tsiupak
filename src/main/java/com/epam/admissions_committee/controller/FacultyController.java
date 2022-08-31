@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/faculty")
 @RequiredArgsConstructor
 @Api(tags = "API description for SWAGGER documentation")
 @ApiResponses({
@@ -30,21 +30,21 @@ public class FacultyController {
 
     @ApiOperation("Add faculty")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/faculty")
-    public FacultyDto createFaculty(@RequestBody  @Valid FacultyDto facultyDto) {
-        return facultyService.createFaculty(facultyDto);
+    @PostMapping(value = "/language/{lang}")
+    public FacultyDto createFaculty(@PathVariable("lang") String lang, @RequestBody  @Valid FacultyDto facultyDto) {
+        return facultyService.createFaculty(facultyDto, lang);
     }
 
     @ApiOperation("Get all faculties")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/faculty")
+    @GetMapping
     public List<Faculty> getAllFaculties() {
         return facultyService.listFaculty();
     }
 
     @ApiOperation("Get faculty")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/faculty/{name}")
+    @GetMapping(value = "/{name}")
     public FacultyDto getFaculty(@PathVariable String name) {
         log.info("getFaculty by name {}", name);
         return facultyService.getFaculty(name);
@@ -52,13 +52,13 @@ public class FacultyController {
 
     @ApiOperation("Update faculty")
     @ResponseStatus(HttpStatus.OK)
-    @PatchMapping(value = "/faculty/{name}")
+    @PatchMapping(value = "/{name}")
     public FacultyDto updateFaculty(@PathVariable("name") String name, @RequestBody  @Valid FacultyDto facultyDto) {
         return facultyService.updateFaculty(name, facultyDto);
     }
 
     @ApiOperation("Delete faculty")
-    @DeleteMapping(value = "/faculty/{name}")
+    @DeleteMapping(value = "/{name}")
     public ResponseEntity<Void> deleteFaculty(@PathVariable String name) {
         facultyService.deleteFaculty(name);
         return ResponseEntity.noContent().build();
