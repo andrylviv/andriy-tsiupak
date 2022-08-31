@@ -1,15 +1,24 @@
 package com.epam.admissions_committee.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+import javax.persistence.*;
+import java.util.Set;
 
-@Data
+@Entity
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Language {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long languageId;
     private String language;
+    @OneToMany(mappedBy="language")
+    @JsonIgnoreProperties("language")
+    @JsonIgnore
+    private Set<FacultyTranslate> ft;
 }
