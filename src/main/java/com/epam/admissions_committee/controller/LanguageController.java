@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/language")
 @RequiredArgsConstructor
 @Api(tags = "API description for SWAGGER documentation")
 @ApiResponses({
@@ -28,7 +28,7 @@ public class LanguageController {
 
     @ApiOperation("Get language")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/language")
+    @GetMapping
     public List<Language> getAllLanguages() {
         log.info("getAllLanguages");
         return languageService.getAllLanguages();
@@ -36,13 +36,13 @@ public class LanguageController {
 
     @ApiOperation("Add language")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/language/{name}")
+    @PostMapping(value = "/{name}")
     public Language createLanguage(@PathVariable String name) {
         return languageService.addLanguage(name);
     }
 
     @ApiOperation("Delete language")
-    @DeleteMapping(value = "/language/{name}")
+    @DeleteMapping(value = "/{name}")
     public ResponseEntity<Void> deleteLanguage(@PathVariable String name) {
     languageService.removeLanguage(name);
         return ResponseEntity.noContent().build();

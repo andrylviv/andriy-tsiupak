@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/faculty")
 @RequiredArgsConstructor
 @Api(tags = "API description for SWAGGER documentation")
 @ApiResponses({
@@ -31,42 +31,42 @@ public class FacultyController {
 
     @ApiOperation("Add faculty")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/faculty/language/{lang}")
+    @PostMapping(value = "/language/{lang}")
     public FacultyDto createFaculty(@PathVariable("lang") String lang, @RequestBody  @Valid FacultyDto facultyDto) {
         return facultyService.createFaculty(facultyDto, lang);
     }
 
     @ApiOperation("Get all faculties")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/faculty")
+    @GetMapping
     public List<Faculty> getAllFaculties() {
         return facultyService.listFaculty();
     }
 
     @ApiOperation("Get all faculties paged and sorted by name")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/faculty/pas-name/page/{page}/size/{size}/lang/{lang}")
+    @GetMapping(value = "/pas-name/page/{page}/size/{size}/lang/{lang}")
     public List<Faculty> getAllFacultiesByName(@PathVariable("page") int page, @PathVariable("size") int size, @PathVariable("lang") String lang) {
         return facultyService.listPagedAndSortingFacultyByName(page, size, lang);
     }
 
     @ApiOperation("Get all faculties paged and sorted by state founded places ")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/faculty/pas-s-f-p-l/page/{page}/size/{size}")
+    @GetMapping(value = "/pas-s-f-p-l/page/{page}/size/{size}")
     public Page<Faculty> getAllFacultiesSFPl(@PathVariable("page") int page, @PathVariable("size") int size) {
         return facultyService.listPagedAndSortingFacultyByStFoundPl(page, size);
     }
 
     @ApiOperation("Get all faculties paged and sorted by total places ")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/faculty/pas-n-s-f-p-l/page/{page}/size/{size}")
+    @GetMapping(value = "/pas-n-s-f-p-l/page/{page}/size/{size}")
     public Page<Faculty> getAllFacultiesNSFPl(@PathVariable("page") int page, @PathVariable("size") int size) {
         return facultyService.listPagedAndSortingFacultyByTotPl(page, size);
     }
 
     @ApiOperation("Get faculty")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/faculty/{name}")
+    @GetMapping(value = "/{name}")
     public FacultyDto getFaculty(@PathVariable String name) {
         log.info("getFaculty by name {}", name);
         return facultyService.getFaculty(name);
@@ -74,13 +74,13 @@ public class FacultyController {
 
     @ApiOperation("Update faculty")
     @ResponseStatus(HttpStatus.OK)
-    @PatchMapping(value = "/faculty/{name}")
+    @PatchMapping(value = "/{name}")
     public FacultyDto updateFaculty(@PathVariable("name") String name, @RequestBody  @Valid FacultyDto facultyDto) {
         return facultyService.updateFaculty(name, facultyDto);
     }
 
     @ApiOperation("Delete faculty")
-    @DeleteMapping(value = "/faculty/{name}")
+    @DeleteMapping(value = "/{name}")
     public ResponseEntity<Void> deleteFaculty(@PathVariable String name) {
         facultyService.deleteFaculty(name);
         return ResponseEntity.noContent().build();

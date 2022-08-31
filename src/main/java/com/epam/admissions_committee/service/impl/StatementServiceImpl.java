@@ -50,29 +50,27 @@ public class StatementServiceImpl implements StatementService {
             finalise(applicantList, faculty);
     }
 
-    private static int getAverageMark(UserInfo userInfo, Faculty faculty) {
-        int avrCertMark = (userInfo.getUkLang() + userInfo.getUkLiter() + userInfo.getEng() + userInfo.getAlgebra() + userInfo.getInformatics()+
-                userInfo.getGeometry() + userInfo.getUkHistory() + userInfo.getPhTraining() + userInfo.getPhysics())/9;
-        int eieMark = 0;
-        int divisor = 0;
+    private double getAverageMark(UserInfo userInfo, Faculty faculty) {
+        double avrCertMark = (userInfo.getUkLang() + userInfo.getUkLiter() + userInfo.getEng() + userInfo.getAlgebra() + userInfo.getInformatics()+
+                userInfo.getGeometry() + userInfo.getUkHistory() + userInfo.getPhTraining() + userInfo.getPhysics());
+        double divisor = 9;
         if (faculty.getIsEieUkLang()==1) {
-            eieMark += userInfo.getEieUkLang();
+            avrCertMark += userInfo.getEieUkLang();
             ++divisor;
         }
         if (faculty.getIsEieMath()==1) {
-            eieMark += userInfo.getEieMath();
+            avrCertMark += userInfo.getEieMath();
             ++divisor;
         }
         if (faculty.getIsEiePhysics()==1) {
-            eieMark += userInfo.getEiePhysics();
+            avrCertMark += userInfo.getEiePhysics();
             ++divisor;
         }
-        int avrEieMark = eieMark / divisor;
-    return  (avrCertMark + avrEieMark) / 2;
+        return (avrCertMark / divisor);
     }
 
     private void finalise(List<Applicant> applicantList, Faculty faculty) {
-        applicantList.sort((a, b) -> ((Integer)b.getMark()).compareTo(a.getMark()));
+        applicantList.sort((a, b) -> ((Double)b.getMark()).compareTo(a.getMark()));
         if (applicantList.size() >= faculty.getTotPlaces()) {
             List<Applicant> applicantListStFoun = applicantList.subList(0, faculty.getStFundedPlaces());
             List<Applicant> applicantListNonStFoun = applicantList.subList(faculty.getStFundedPlaces(), faculty.getTotPlaces());

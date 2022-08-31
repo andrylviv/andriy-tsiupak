@@ -7,5 +7,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Applicant {
     private User applicantId;
-    private int mark;
+    private double mark;
 }
