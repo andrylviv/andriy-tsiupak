@@ -1,5 +1,6 @@
 package com.epam.admissions_committee.controller;
 
+import com.epam.admissions_committee.WebConfig;
 import com.epam.admissions_committee.controller.dto.FacultyDto;
 import com.epam.admissions_committee.model.Faculty;
 import com.epam.admissions_committee.service.FacultyService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
@@ -24,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(value = FacultyController.class)
 @AutoConfigureMockMvc
+@Import(WebConfig.class)
 class FacultyControllerTest {
     @Autowired
     private MockMvc mockMvc;
